@@ -1,47 +1,32 @@
 <?php 
     require_once('C:/xampp/htdocs/webDB/connection.php');
 
-    if(isset($_REQUEST['update_id'])) {
-         try {
-            $no = $_REQUEST['update_id'];
-            $select_stmt = $db->prepare("SELECT * FROM customer WHERE no = :o");
-            $select_stmt->bindParam(':o', $no);
-            $select_stmt->execute();
-            $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
-            extract($row);
-         }  catch(PDOException $e){
-            $e->getMessage();
-         }
-    }
+    if(isset($_REQUEST['submit'])) {
+        $Car_Model = $_REQUEST['txt_Car_Model'];
+        $Car_Price = $_REQUEST['txt_Car_Price'];
 
-    if(isset($_REQUEST['update'])) {
-        $idcard_new= $_REQUEST['txt_idcard'];
-        $name_new= $_REQUEST['txt_name'];
-        $phone_new= $_REQUEST['txt_phone'];
-        $address_new= $_REQUEST['txt_address'];
 
-        if(empty($idcard)) {
-            $errorMsg = "Please Enter ID Card";
+          if (empty($Car_Model)){
+            $errorMsg = "Please enter Car_Model";
+        } elseif (empty($Car_Price)){
+            $errorMsg = "Please enter Car_Price";
         } else {
+
             try {
-                if(!isset($errorMsg)) {
-                    $update_stmt = $db->prepare("UPDATE customer SET idcard = :idc , name = :n, phone = :p, address = :a WHERE no = :o");
-                    $update_stmt->bindParam(':n', $name_new);
-                    $update_stmt->bindParam(':p', $phone_new);
-                    $update_stmt->bindParam(':a', $address_new);
-                    $update_stmt->bindParam(':idc', $idcard_new);
-                    $update_stmt->bindParam(':o', $no);
+                if (!isset($errorMsg)) {
+                    $insert_stmt = $db->prepare("INSERT INTO car(Car_Model,Car_Price) VALUES (:a, :p)");
+                    $insert_stmt -> bindParam(':a', $Car_Model);
+                    $insert_stmt -> bindParam(':p', $Car_Price);
 
-
-                    if($update_stmt->execute()) {
-                        $updateMsg = "Record update successfully...";
-                        header("refresh:2;CRUD_TABLE_Customer.php");
+                    if($insert_stmt->execute()) {
+                        $insertMsg = "Record update successfully...";
+                        header("refresh:1;CRUD_TABLE_Car.php");
                     }
                 }
-            } catch(PDOException $e){
-                echo $e-> getMessage();
-            }
-        }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+          }
+        }     
     }
 ?>
 
@@ -386,6 +371,25 @@
 </script>
 </head>
 
+<?php 
+        			if(isset($errorMsg)) {   
+    			?>
+				<div class="alert alert-danger">
+					<strong>Wrong!
+						<?php echo $errorMsg; ?>
+					</strong>
+				</div>
+				<?php } ?>
+
+				<?php 
+        			if(isset($updateMsg)) {   
+    			?>
+				<div class="alert alert-success">
+					<strong>Success!
+						<?php echo $updateMsg; ?>
+					</strong>
+				</div>
+				<?php } ?>
 <body>
 	<div class="container-xl">
 		<div class="table-responsive">
@@ -393,75 +397,34 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Edit <b>Customer</b></h2>
+							<h2>Add <b>Car</b></h2>
 						</div>
 					</div>
 				</div>
 
-				<?php 
-        			if(isset($errorMsg)) {   
-    			?>
-        		<div class="alert alert-danger">
-           		 	<strong>Wrong! <?php echo $errorMsg; ?></strong>
-        		</div>
-    			<?php } ?>
+				<link rel="stylesheet" href="styls.css">
+				<header>
+					<h1>Add Colums</h1>
+				</header>
 
-    			<?php 
-        			if(isset($updateMsg)) {   
-    			?>
-        			<div class="alert alert-success">
-            			<strong>Success! <?php echo $updateMsg; ?></strong>
-        			</div>
-    			<?php } ?>
+				<div id="form">
 
-				<form method="post" class="form-horizontal mt-5">
+					<div class="fish" id="fish"></div>
+					<div class="fish" id="fish2"></div>
 
-					<div class="form-group text-center">
-						<div class="row">
-							<label for="computer_id" class="col-sm-3 control-label"> ID Card </label>
-							<div class="col-sm-6">
-								<input type="text" name="txt_idcard" class="form-control" value="<?php echo $idcard?>">
-							</div>
+					<form id="waterform" method="post">
+
+						<div class="formgroup" id="Car_Model-form">
+							<label for="name">Car Model</label>
+							<input type="text" name="txt_Car_Model" class="form-control" required></input>
 						</div>
-					</div>
 
-					<div class="form-group text-center">
-						<div class="row">
-							<label for="computer_id" class="col-sm-3 control-label"> Name </label>
-							<div class="col-sm-6">
-								<input type="text" name="txt_name" class="form-control" value="<?php echo $name?>">
-							</div>
+						<div class="formgroup" id="Car_Price-form">
+							<label for="email">Car Price</label>
+							<input type="text" name="txt_Car_Price" class="form-control" required></input>
 						</div>
-					</div>
-
-					<div class="form-group text-center">
-						<div class="row">
-							<label for="computer_id" class="col-sm-3 control-label"> Phone number </label>
-							<div class="col-sm-6">
-								<input type="text" name="txt_phone" class="form-control" value="<?php echo $phone?>">
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group text-center">
-						<div class="row">
-							<label for="computer_id" class="col-sm-3 control-label"> Address </label>
-							<div class="col-sm-6">
-								<input type="text" name="txt_address" class="form-control"
-									value="<?php echo $address?>">
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group text-center">
-						<div class="col-md-12 mt-5">
-							<input type="submit" name="update" class="btn btn-success" value="Update">
-							<a href="CRUD_TABLE_Customer.php" class="btn btn-danger">Cancel</a>
-						</div>
-					</div>
-
-
-				</form>
+						<input type="submit" name="submit" class="btn btn-success" value="Submit">
+						<a href="CRUD_TABLE_Car.php"><input type="button" class="btn btn-default" value="Cancel"></a>
 
 </body>
 

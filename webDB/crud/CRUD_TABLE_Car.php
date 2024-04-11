@@ -1,5 +1,5 @@
 <?php 
-    require_once('connection.php');
+    require_once('C:/xampp/htdocs/webDB/connection.php');
 
     if(isset($_REQUEST['delete_Car_ID'])) {
         $Car_ID = $_REQUEST['delete_Car_ID'];
@@ -22,7 +22,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>CRUD Data Table</title>
+<title>CRUD Car Table</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -50,13 +50,13 @@ integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
 						<a class="nav-link active" style="color: #000;" aria-current="page"
-							href="CRUD_TABLE_Car.html">ㅤㅤTable Car</a>
+							href="CRUD_TABLE_Car.php">ㅤㅤTable Car</a>
 						<a class="nav-link active" style="color: #000;" aria-current="page"
-							href="CRUD_TABLE_Customer.html">ㅤㅤTable Customer</a>
+							href="CRUD_TABLE_Customer.php">ㅤㅤTable Customer</a>
 						<a class="nav-link active" style="color: #000;" aria-current="page"
-							href="CRUD_TABLE_Employees.html">ㅤㅤTable Employees</a>
+							href="CRUD_TABLE_Employees.php">ㅤㅤTable Employees</a>
 						<a class="nav-link active" style="color: #000;" aria-current="page"
-							href="CRUD_TABLE_SecondhandCarshop.html">ㅤㅤTable Car Shop</a>
+							href="CRUD_TABLE_SecondhandCarshop.php">ㅤㅤTable Car Shop</a>
 					</li>
 				</ul>
 			</div>
@@ -297,7 +297,38 @@ table.table .avatar {
 }	
 .modal form label {
 	font-weight: normal;
+}
+
+a.btn-edit{
+		background: lightgreen;
+		border: 2px solid white;
+		padding: 10px 15px;
+		margin: 20px;
+		border-radius: 5px;
+		text-decoration: none;
+		transition-duration: 0.5s;
+		float: right;
+	}
+
+a.btn-edit:hover{
+	border-radius: 5px;
+}
+
+a.btn-delete{
+	background: #ff7167;
+	border: 2px solid white;
+	padding: 10px 15px;
+	margin: 20px;
+	border-radius: 5px;
+	text-decoration: none;
+	transition-duration: 0.5s;
+	float: right;
+}
+
+a.btn-delete:hover{
+	border-radius: 5px;
 }	
+
 </style>
 <script>
 $(document).ready(function(){
@@ -335,7 +366,7 @@ $(document).ready(function(){
 						<h2>Manage <b>Car</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Person</span></a>					
+					<a href="add_Car_crud.php" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New Car</span></a>					
 					</div>
 				</div>
 			</div>
@@ -345,12 +376,14 @@ $(document).ready(function(){
 						<th>Car_ID</th>
 						<th>Car_Model</th>
 						<th>Car_Price</th>
+						<th></th>
+						<th>optios</th>
 					</tr>
 				</thead>
 				<tbody>
 
 				<?php
-						include "connection.php";
+						include "C:/xampp/htdocs/webDB/connection.php";
 						$sql = "select * from car";
 						$result = $db->query($sql);
 						if(!$result){
@@ -363,8 +396,10 @@ $(document).ready(function(){
 						<td>$row[Car_Model]</td>
 						<td>$row[Car_Price]</td>
 						<td>
-						<a class='btn-add' href='edit_car_crud.php?update_Car_ID=$row[Car_ID]'>Edit</a>
-							<a class='btn-delete' href='?delete_Car_ID=$row[Car_ID]'>Delete</a>						
+							<a class='btn-edit' href='edit_car_crud.php?update_Car_ID=$row[Car_ID]'>Edit</a>				
+						</td>
+						<td>
+							<a class='btn-delete' href='?delete_Car_ID=$row[Car_ID]'>Delete</a>		
 						</td>
 					</tr>
 					";}

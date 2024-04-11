@@ -1,47 +1,38 @@
+
 <?php 
     require_once('C:/xampp/htdocs/webDB/connection.php');
 
-    if(isset($_REQUEST['update_id'])) {
-         try {
-            $no = $_REQUEST['update_id'];
-            $select_stmt = $db->prepare("SELECT * FROM customer WHERE no = :o");
-            $select_stmt->bindParam(':o', $no);
-            $select_stmt->execute();
-            $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
-            extract($row);
-         }  catch(PDOException $e){
-            $e->getMessage();
-         }
-    }
+    if(isset($_REQUEST['btn_insert'])) {
+        $name= $_REQUEST['txt_name'];
+        $lastname = $_REQUEST['txt_lastname'];
+        $edulev = $_REQUEST['txt_edulev'];
 
-    if(isset($_REQUEST['update'])) {
-        $idcard_new= $_REQUEST['txt_idcard'];
-        $name_new= $_REQUEST['txt_name'];
-        $phone_new= $_REQUEST['txt_phone'];
-        $address_new= $_REQUEST['txt_address'];
 
-        if(empty($idcard)) {
-            $errorMsg = "Please Enter ID Card";
+        if (empty($name)) {
+            $errorMsg = "Please enter Name";
+        } elseif (empty($lastname)){
+            $errorMsg = "Please enter Last name";
+        } elseif (empty($edulev)){
+            $errorMsg = "Please enter Education level";
         } else {
+
             try {
-                if(!isset($errorMsg)) {
-                    $update_stmt = $db->prepare("UPDATE customer SET idcard = :idc , name = :n, phone = :p, address = :a WHERE no = :o");
-                    $update_stmt->bindParam(':n', $name_new);
-                    $update_stmt->bindParam(':p', $phone_new);
-                    $update_stmt->bindParam(':a', $address_new);
-                    $update_stmt->bindParam(':idc', $idcard_new);
-                    $update_stmt->bindParam(':o', $no);
+                if (!isset($errorMsg)) {
+                    $insert_stmt = $db->prepare("INSERT INTO employee(name,lastname,edulev) VALUES (:n, :ln, :el)");
+                    $insert_stmt -> bindParam(':n', $name);
+                    $insert_stmt -> bindParam(':ln', $lastname);
+                    $insert_stmt -> bindParam(':el', $edulev);
 
-
-                    if($update_stmt->execute()) {
-                        $updateMsg = "Record update successfully...";
-                        header("refresh:2;CRUD_TABLE_Customer.php");
+    
+                    if($insert_stmt->execute()) {
+                        $insertMsg = "Insert Successfully...";
+						header("refresh:1;CRUD_TABLE_Employees.php");
                     }
                 }
-            } catch(PDOException $e){
-                echo $e-> getMessage();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
             }
-        }
+        }      
     }
 ?>
 
@@ -393,7 +384,7 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Edit <b>Customer</b></h2>
+							<h2>Add <b>Employee</b></h2>
 						</div>
 					</div>
 				</div>
@@ -414,55 +405,44 @@
         			</div>
     			<?php } ?>
 
-				<form method="post" class="form-horizontal mt-5">
 
-					<div class="form-group text-center">
-						<div class="row">
-							<label for="computer_id" class="col-sm-3 control-label"> ID Card </label>
-							<div class="col-sm-6">
-								<input type="text" name="txt_idcard" class="form-control" value="<?php echo $idcard?>">
-							</div>
-						</div>
-					</div>
+
+
+				<form method="post" class="form-horizontal mt-5">
 
 					<div class="form-group text-center">
 						<div class="row">
 							<label for="computer_id" class="col-sm-3 control-label"> Name </label>
 							<div class="col-sm-6">
-								<input type="text" name="txt_name" class="form-control" value="<?php echo $name?>">
+								<input type="text" name="txt_name" class="form-control" required></input>
 							</div>
 						</div>
 					</div>
 
 					<div class="form-group text-center">
 						<div class="row">
-							<label for="computer_id" class="col-sm-3 control-label"> Phone number </label>
+							<label for="computer_id" class="col-sm-3 control-label"> Last name </label>
 							<div class="col-sm-6">
-								<input type="text" name="txt_phone" class="form-control" value="<?php echo $phone?>">
+								<input type="text" name="txt_lastname" class="form-control" required></input>
 							</div>
 						</div>
 					</div>
 
 					<div class="form-group text-center">
 						<div class="row">
-							<label for="computer_id" class="col-sm-3 control-label"> Address </label>
+							<label for="computer_id" class="col-sm-3 control-label"> Education level </label>
 							<div class="col-sm-6">
-								<input type="text" name="txt_address" class="form-control"
-									value="<?php echo $address?>">
+								<input type="text" name="txt_edulev" class="form-control" required></input>
 							</div>
 						</div>
 					</div>
 
 					<div class="form-group text-center">
 						<div class="col-md-12 mt-5">
-							<input type="submit" name="update" class="btn btn-success" value="Update">
-							<a href="CRUD_TABLE_Customer.php" class="btn btn-danger">Cancel</a>
+                            <a href="CRUD_TABLE_Employees.php" ><input type="button" class="btn btn-default"value="Cancel"></a>
+							<input type="submit" name="btn_insert" class="btn btn-success" value="Add">
 						</div>
 					</div>
-
-
 				</form>
-
 </body>
-
 </html>

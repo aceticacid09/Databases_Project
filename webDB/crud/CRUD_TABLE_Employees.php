@@ -24,7 +24,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>CRUD Data Table</title>
+<title>CRUD Employees Table</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -312,24 +312,24 @@ a.btn-edit{
 		float: right;
 	}
 
-	a.btn-edit:hover{
-		border-radius: 5px;
-	}
+a.btn-edit:hover{
+	border-radius: 5px;
+}
 
-	a.btn-delete{
-		background: #ff7167;
-		border: 2px solid white;
-		padding: 10px 15px;
-		margin: 20px;
-		border-radius: 5px;
-		text-decoration: none;
-		transition-duration: 0.5s;
-		float: right;
-	}
+a.btn-delete{
+	background: #ff7167;
+	border: 2px solid white;
+	padding: 10px 15px;
+	margin: 20px;
+	border-radius: 5px;
+	text-decoration: none;
+	transition-duration: 0.5s;
+	float: right;
+}
 
-	a.btn-delete:hover{
-		border-radius: 5px;
-	}
+a.btn-delete:hover{
+	border-radius: 5px;
+}
 
 </style>
 <script>
@@ -368,7 +368,7 @@ $(document).ready(function(){
 						<h2>Manage <b>Employee</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Person</span></a>					
+						<a href="add_Employee_crud.php" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New Person</span></a>					
 					</div>
 				</div>
 			</div>
@@ -454,40 +454,5 @@ $(document).ready(function(){
     }
 ?>
 
-
-<div id="addEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Add Data</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Person_ID</label>
-						<input type="text" name="txt_idcard" class="form-control" required></input>
-					</div>
-					<div class="form-group">
-						<label>Person_name</label>
-						<input type="text" name="txt_name" class="form-control" required></input>
-					</div>
-					<div class="form-group">
-						<label>Person_Phone</label>
-						<input type="text" name="txt_phone" class="form-control" required></input>
-					</div>
-					<div class="form-group">
-						<label>Person_Address</label>
-						<input type="text" name="txt_address" class="form-control" required></input>
-					</div>					
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" name="btn_insert" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
 </body>
 </html>

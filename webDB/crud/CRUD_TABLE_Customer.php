@@ -24,7 +24,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>CRUD Data Table</title>
+<title>CRUD Customers Table</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -368,7 +368,7 @@ $(document).ready(function(){
 						<h2>Manage <b>Customer</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Person</span></a>					
+						<a href="add_Customer_crud.php" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New Person</span></a>					
 					</div>
 				</div>
 			</div>
