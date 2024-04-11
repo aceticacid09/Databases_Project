@@ -57,8 +57,8 @@ integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6
 							href="CRUD_TABLE_Customer.php">ㅤㅤTable Customer</a>
 						<a class="nav-link active" style="color: #000;" aria-current="page"
 							href="CRUD_TABLE_Employees.php">ㅤㅤTable Employees</a>
-						<a class="nav-link active" style="color: #000;" aria-current="page"
-							href="CRUD_TABLE_SecondhandCarshop.php">ㅤㅤTable Car Shop</a>
+							<a class="nav-link active" style="color: #000;" aria-current="page"
+							href="CRUD_TABLE_SecondhandCarshop.php">ㅤㅤTable Second hand Car Shop</a>
 					</li>
 				</ul>
 			</div>
